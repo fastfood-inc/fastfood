@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const db = require('../db/models');
 
 module.exports = function () {
   const app = express();
@@ -10,13 +11,8 @@ module.exports = function () {
   app.get('/', function (_, res) { res.sendFile(indexPath) });
 
   app.get('/restaurants', function (_, res) {
-    res.send(JSON.stringify({
-      restaurants: [
-        { id: 1, name: 'Cabo Grill' },
-        { id: 2, name: 'Salinas Grill' },
-        { id: 3, name: 'Don Vidal ' }
-      ]
-    }));
+    db.Restaurant.findAll()
+      .then(restaurants => res.status(200).send({ restaurants: restaurants }));
   });
 
   return app;
