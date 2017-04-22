@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class RestaurantList extends Component {
-  constructor() {
-    super();
+import { setRestaurants } from '../actions';
 
-    this.state = { restaurants: [] };
-  }
-
+class RestaurantList extends Component {
   componentWillMount() {
     fetch('/restaurants')
       .then((response) => {
         return response.json();
       })
-      .then(({ restaurants }) => this.setState({ restaurants }));
+      .then(({ restaurants }) => this.props.setRestaurants(restaurants));
   }
 
   render() {
     return (
       <ul>
         {
-          this.state.restaurants.map((restaurant) => <li key={restaurant.id}>{restaurant.name}</li>)
+          this.props.restaurants.map((restaurant) => <li key={restaurant.id}>{restaurant.name}</li>)
         }
       </ul>
     );
   }
 }
+
+function mapStateToProps({ restaurants }) {
+  return { restaurants };
+}
+
+export default connect(mapStateToProps, { setRestaurants })(RestaurantList);
