@@ -1,5 +1,7 @@
 import React from 'react';
 
+import RestaurantList from './RestaurantList';
+
 export default function App() {
-  return <div>Olá porra!</div>;
+  return <RestaurantList />;
 }
