@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 export default class RestaurantList extends Component {
   constructor() {
     super();
+
     this.state = { restaurants: [] };
   }
 
